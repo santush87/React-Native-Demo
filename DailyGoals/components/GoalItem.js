@@ -4,8 +4,10 @@ function GoalItem(props) {
   return (
     <View style={styles.goalItem}>
       <Pressable
+        // for Android
         android_ripple={{ color: "red" }}
         onPress={props.onDeleteItem.bind(this, props.id)}
+        // for iOS
         style={({ pressed }) => pressed && styles.pressedItem}
       >
         <Text style={styles.goalText}>{props.text}</Text>
