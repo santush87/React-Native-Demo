@@ -1,18 +1,5 @@
-import { View, Text, StyleSheet } from "react-native";
+import ExpensesOutput from "../components/ExpensesOutput/ExpensesOutput";
 
 export default function AllExpenses() {
-  return (
-    <View>
-      <Text>All Expenses</Text>
-    </View>
-  );
+  return <ExpensesOutput expensesPeriod="Total" />;
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
