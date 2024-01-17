@@ -1,9 +1,9 @@
 import { View, Text, StyleSheet } from "react-native";
 
-export default function AllExpenses() {
+export default function ManageExpense() {
   return (
     <View>
-      <Text>All Expenses</Text>
+      <Text>Manage Expense</Text>
     </View>
   );
 }
