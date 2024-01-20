@@ -1,9 +1,41 @@
 import { StyleSheet, View, Text } from "react-native";
 import Input from "./Input";
-import { GlobalStyles } from "../../constants/styles";
+import { useState } from "react";
+import Button from "../UI/Button";
+import { getFormattedDate } from "../../util/date";
 
-export default function ExpenseForm() {
-  function amountChangeHandler() {}
+export default function ExpenseForm({
+  submitButtonLabel,
+  onCancel,
+  onSubmit,
+  defaultValue,
+}) {
+  //   const [amountValue, setAmountValue] = useState("");
+  const [inputValues, setInputValues] = useState({
+    amount: defaultValue ? defaultValue.amount.toString() : "",
+    date: defaultValue ? getFormattedDate(defaultValue.date) : "",
+    description: defaultValue ? defaultValue.description : "",
+  });
+
+  function inputChangeHandler(inputIdentifier, enteredValue) {
+    setInputValues((currInputValues) => {
+      return {
+        ...currInputValues,
+        [inputIdentifier]: enteredValue.replace(",", "."),
+      };
+    });
+  }
+
+  function submitHandler() {
+    const expenseData = {
+      amount: +inputValues.amount,
+      date: new Date(inputValues.date),
+      description: inputValues.description,
+    };
+
+    onSubmit(expenseData);
+  }
+
   return (
     <View style={styles.form}>
       <Text style={styles.title}>Your Expense</Text>
@@ -13,7 +45,8 @@ export default function ExpenseForm() {
           label="Amount"
           textInputConfig={{
             keyboardType: "decimal-pad",
-            onChangeText: amountChangeHandler,
+            onChangeText: inputChangeHandler.bind(this, "amount"),
+            value: inputValues.amount,
           }}
         />
         <Input
@@ -22,7 +55,8 @@ export default function ExpenseForm() {
           textInputConfig={{
             placeholder: "YYYY-MM-DD",
             maxLength: 10,
-            onChangeText: () => {},
+            onChangeText: inputChangeHandler.bind(this, "date"),
+            value: inputValues.date,
           }}
         />
       </View>
@@ -31,8 +65,18 @@ export default function ExpenseForm() {
         textInputConfig={{
           multiline: true,
           autoCorrect: false, // default is true
+          onChangeText: inputChangeHandler.bind(this, "description"),
+          value: inputValues.description,
         }}
       />
+      <View style={styles.buttons}>
+        <Button style={styles.button} mode="flat" onPress={onCancel}>
+          Cancel
+        </Button>
+        <Button style={styles.button} onPress={submitHandler}>
+          {submitButtonLabel}
+        </Button>
+      </View>
     </View>
   );
 }
@@ -47,6 +91,15 @@ const styles = StyleSheet.create({
     color: "white",
     marginVertical: 24,
     textAlign: "center",
+  },
+  buttons: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  button: {
+    minWidth: 120,
+    marginHorizontal: 8,
   },
   inputsRow: {
     flexDirection: "row",
