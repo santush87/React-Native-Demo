@@ -28,10 +28,10 @@ export default function ManageExpense({ route, navigation }) {
     });
   }, [navigation, isEdited]);
 
-  function deleteExpenseHandler() {
+  async function deleteExpenseHandler() {
     setIsSubmitting(true);
     try {
-      deleteExpense(editedExpenseId);
+      await deleteExpense(editedExpenseId);
       expensesCtx.deleteExpense(editedExpenseId);
       navigation.goBack();
     } catch (error) {
@@ -61,12 +61,8 @@ export default function ManageExpense({ route, navigation }) {
     navigation.goBack();
   }
 
-  function errorHandler() {
-    setError(null);
-  }
-
   if (error && !isSubmitting) {
-    return <ErrorOverlay message={error} onConfirm={errorHandler} />;
+    return <ErrorOverlay message={error} />;
   }
 
   if (isSubmitting) {
