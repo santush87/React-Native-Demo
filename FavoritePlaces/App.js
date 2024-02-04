@@ -9,6 +9,7 @@ import Map from "./screens/Map";
 import { useEffect, useState } from "react";
 import { init } from "./util/database";
 import AppLoading from "expo-app-loading";
+import * as SplashScreen from "expo-splash-screen";
 
 const Stack = createNativeStackNavigator();
 
