@@ -14,11 +14,21 @@ export default function Map({ navigation }) {
   };
 
   function selectLocationHandler(event) {
-    console.log(event);
     const lat = event.nativeEvent.coordinate.latitude;
+    // console.log("------------------- LATITUDE");
+    // console.log(event.nativeEvent.coordinate.latitude);
+    // console.log(lat);
+
     const lng = event.nativeEvent.coordinate.longitude;
+    // console.log("------------------- LONGITUDE");
+    // console.log(event.nativeEvent.coordinate.longitude);
+    // console.log(lng);
 
     setSelectedLocation({ lat: lat, lng: lng });
+    // console.log("-------------------");
+    // console.log(selectedLocation);
+    // console.log(selectedLocation.lat);
+    // console.log(selectedLocation.lng);
   }
 
   const savePickedLocationHandler = useCallback(() => {
@@ -30,6 +40,10 @@ export default function Map({ navigation }) {
       return;
     }
 
+    // console.log("-------After ALL selectedLocation------------");
+    // console.log(selectedLocation);
+    // console.log(selectedLocation.lat);
+    // console.log(selectedLocation.lng);
     // navigation.goBack(); Also that's ok
     navigation.navigate("AddPlace", {
       // pickedLocation: selectedLocation, That is a shortcut
