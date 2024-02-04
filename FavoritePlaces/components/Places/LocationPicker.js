@@ -15,7 +15,7 @@ import {
   useIsFocused,
 } from "@react-navigation/native";
 
-export default function LocationPicker() {
+export default function LocationPicker({ onPickLocation }) {
   const [pickedLocation, setPickedLocation] = useState();
   const isFocused = useIsFocused();
 
@@ -28,8 +28,8 @@ export default function LocationPicker() {
   useEffect(() => {
     if (isFocused && route.params) {
       const mapPickedLocation = {
-        lat: route.params.picketLat,
-        lng: route.params.picketLng,
+        lat: route.params.pickedLat,
+        lng: route.params.pickedLng,
       };
       setPickedLocation(mapPickedLocation);
     }
